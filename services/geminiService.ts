@@ -1,6 +1,6 @@
 
 import { GoogleGenAI, Type } from "@google/genai";
-import { InsightResponse } from "../types";
+import { InsightResponse } from "../types.ts";
 
 export const getCulturalInsight = async (
   birthDate: string, 

@@ -1,8 +1,8 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { calculateAge, formatFullDate } from './utils';
-import { AgeDetails, InsightResponse } from './types';
-import { getCulturalInsight } from './services/geminiService';
+import { calculateAge, formatFullDate } from './utils.ts';
+import { AgeDetails, InsightResponse } from './types.ts';
+import { getCulturalInsight } from './services/geminiService.ts';
 
 // Reusable Components
 const Card: React.FC<{ title: string; children: React.ReactNode; className?: string }> = ({ title, children, className = "" }) => (
