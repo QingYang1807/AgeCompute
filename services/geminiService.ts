@@ -2,12 +2,17 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { InsightResponse } from "../types.ts";
 
+/**
+ * Fetches cultural and traditional Chinese insights based on age details using Gemini AI.
+ * Uses gemini-3-flash-preview for fast and relevant text generation.
+ */
 export const getCulturalInsight = async (
   birthDate: string, 
   zhousui: number, 
   xusui: number, 
   zodiac: string
 ): Promise<InsightResponse> => {
+  // Always initialize with the latest API key from environment variables
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
   
   const prompt = `
@@ -38,9 +43,16 @@ export const getCulturalInsight = async (
       }
     });
 
-    return JSON.parse(response.text.trim());
+    // Access .text property directly as per @google/genai guidelines
+    const text = response.text;
+    if (!text) {
+      throw new Error("Gemini API returned an empty response.");
+    }
+    
+    return JSON.parse(text.trim());
   } catch (error) {
-    console.error("Gemini Error:", error);
+    console.error("Gemini Cultural Insight Error:", error);
+    // Provide graceful fallback content
     return {
       culturalSignificance: "年龄不仅是数字，更是生命的积淀。在中国传统中，不同的岁数承载着不同的社会责任与期待。",
       zodiacReading: `属${zodiac}的人通常具有独特的魅力与坚韧的品质。`,
